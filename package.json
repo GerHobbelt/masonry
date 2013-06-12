@@ -1,0 +1,19 @@
+{
+  "name": "masonry",
+  "version": "3.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MfgLabs/masonry.git"
+  },
+  "description": "masonry with dependencies packaged",
+  "dependencies": {
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*"
+  },
+  "main": "./lib/masonry.js",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+  }
+}
