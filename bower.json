@@ -1,6 +1,6 @@
 {
   "name": "masonry",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Cascading grid layout library",
   "main": "masonry.js",
   "dependencies": {
@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "doc-ready": "desandro/doc-ready",
-    "qunit": "1.12"
+    "qunit": "1.12",
+    "jquery": "1.x"
   }
 }
