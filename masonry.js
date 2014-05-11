@@ -1,5 +1,5 @@
 /*!
- * Masonry v3.0.1
+ * Masonry v3.0.2
  * Cascading grid layout library
  * http://masonry.desandro.com
  * MIT License
@@ -53,6 +53,7 @@ function masonryDefinition( Outlayer, getSize ) {
   };
 
   Masonry.prototype.measureColumns = function() {
+    var container = this.options.isFitWidth ? this.element.parentNode : this.element;
     // if columnWidth is 0, default to outerWidth of first item
     var firstItem = this.items[0];
     var firstItemElem = firstItem && firstItem.element;
@@ -64,7 +65,8 @@ function masonryDefinition( Outlayer, getSize ) {
     }
     this.columnWidth += this.gutter;
 
-    this.cols = Math.floor( ( this.size.innerWidth + this.gutter ) / this.columnWidth );
+    var containerSize = getSize( container ).innerWidth;
+    this.cols = Math.floor( ( containerSize + this.gutter ) / this.columnWidth );
     this.cols = Math.max( this.cols, 1 );
   };
 
@@ -138,9 +140,29 @@ function masonryDefinition( Outlayer, getSize ) {
 
   Masonry.prototype._getContainerSize = function() {
     this.maxY = Math.max.apply( Math, this.colYs );
-    return {
+    var size = {
       height: this.maxY
     };
+
+    if ( this.options.isFitWidth ) {
+      size.width = this._getContainerFitWidth();
+    }
+
+    return size;
+  };
+
+  Masonry.prototype._getContainerFitWidth = function() {
+    var unusedCols = 0;
+    // count unused columns
+    var i = this.cols;
+    while ( --i ) {
+      if ( this.colYs[i] !== 0 ) {
+        break;
+      }
+      unusedCols++;
+    }
+    // fit container to columns that have been used
+    return ( this.cols - unusedCols ) * this.columnWidth - this.gutter;
   };
 
   return Masonry;
